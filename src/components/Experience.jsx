@@ -52,15 +52,20 @@ export const Experience = (props) => {
         scale={[0.9, 0.9, 0.9]}
         animate={{
           z: section === 1 ? 20 : 5.5,
-          y: section === 1 ? -viewport.height / 2.2 : 0.6,
-          x: section === 1 ? 1.8 : 3.6,
+          y: section === 1 ? -viewport.height / 2.7 : 0.6,
+          x: section === 1 ? 2.8 : 3.6,
         }}
         // rotation-x={section === 1 ? 2 : 0}
         // rotation-z={section === 1 ? 2 : 0}
         // rotation-y={section === 1 ? 8 : 0}
-        rotation-x={section === 1 ? 2 : Math.PI / 50}
+
+        //Burpees
+        // rotation-x={section === 1 ? 2 : Math.PI / 50}
+        // rotation-z={section === 1 ? 2 : -Math.PI / 2.2}
+        // rotation-y={section === 1 ? 8 : -Math.PI / 1.1}
+        rotation-x={section === 1 ? 2.5 : Math.PI / 50}
         rotation-z={section === 1 ? 2 : -Math.PI / 2.2}
-        rotation-y={section === 1 ? 8 : -Math.PI / 1.1}
+        rotation-y={section === 1 ? 8.1 : -Math.PI / 1.1}
       >
         {/* <motion.group
         position={[0, -1.5, -10]}
@@ -72,31 +77,43 @@ export const Experience = (props) => {
       > */}
         <directionalLight position={[-5, 3, 5]} intensity={0.4} />
         <Float>
-          <mesh position={[4.2, -2.6, -5]} scale={[2, 2, 2]}>
-            <sphereGeometry />
+          <mesh position={[-1.2, -4, -4]} scale={[2, 2, 2]}>
+            {section === 0 && <sphereGeometry />}
             <MeshDistortMaterial
-              opacity={0.3}
+              opacity={0.8}
               transparent
               distort={0.4}
               speed={8.5}
-              color={"black"}
+              color={"blue"}
             />
           </mesh>
         </Float>
         <Float>
-          <mesh scale={[3, 3, 2]} position={[3, 1, -8]}>
-            <sphereGeometry />
-            <MeshDistortMaterial
-              opacity={0.8}
+          <mesh scale={[2, 2, 2]} position={[-2, -2, -5]}>
+            {section === 1 && <boxGeometry />}
+            <MeshWobbleMaterial
+              opacity={0.2}
               transparent
-              distort={1}
-              speed={5}
+              factor={2}
+              speed={2}
               color="yellow"
             />
           </mesh>
         </Float>
         <Float>
-          <mesh scale={[2, 2, 2]} position={[-3, -1, -11]}>
+          <mesh scale={[3, 4, 2]} position={[0.2, 10, -0.5]}>
+            {section === 1 && <sphereGeometry />}
+            <MeshDistortMaterial
+              opacity={0.5}
+              transparent
+              distort={1}
+              speed={2}
+              color="white"
+            />
+          </mesh>
+        </Float>
+        <Float>
+          <mesh scale={[2, 2, 2]} position={[-3, -1, 7]}>
             <boxGeometry />
             <MeshWobbleMaterial
               opacity={0.8}
