@@ -2,19 +2,21 @@ import {
   Float,
   MeshDistortMaterial,
   MeshWobbleMaterial,
+  useScroll,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { animate, useMotionValue } from "framer-motion";
 import { motion } from "framer-motion-3d";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { framerMotionConfig } from "../config";
 import { Avatar } from "./Avatar";
 import { Office } from "./Office";
 
 export const Experience = (props) => {
-  const { section, menuOpened } = props;
+  const { menuOpened } = props;
   const { viewport } = useThree();
-
+  const data = useScroll();
+  const [section, setSection] = useState(0);
   const cameraPositionX = useMotionValue();
   const cameraLookAtX = useMotionValue();
 
@@ -28,6 +30,10 @@ export const Experience = (props) => {
   }, [menuOpened]);
 
   useFrame((state) => {
+    const curSection = Math.floor(data.scroll.current * data.pages);
+    if (curSection !== section) {
+      setSection(curSection);
+    }
     state.camera.position.x = cameraPositionX.get();
     state.camera.lookAt(cameraLookAtX.get(), 0, 0);
   });
@@ -49,54 +55,79 @@ export const Experience = (props) => {
       {/* SKILLS */}
       <motion.group
         position={[0, -1.5, -10]}
-        scale={[0.9, 0.9, 0.9]}
-        animate={{
-          z: section === 1 ? 20 : 5.5,
-          y: section === 1 ? -viewport.height / 2.2 : 0.6,
-          x: section === 1 ? 1.8 : 3.6,
+        animate={"" + section}
+        transition={{
+          duration: 1,
         }}
-        // rotation-x={section === 1 ? 2 : 0}
-        // rotation-z={section === 1 ? 2 : 0}
-        // rotation-y={section === 1 ? 8 : 0}
-        rotation-x={section === 1 ? 2 : Math.PI / 50}
-        rotation-z={section === 1 ? 2 : -Math.PI / 2.2}
-        rotation-y={section === 1 ? 8 : -Math.PI / 1.1}
+        variants={{
+          0: {
+            z: 5.5,
+            y: 0.6,
+            x: 3.6,
+            scaleX: 0.9,
+            scaleY: 0.9,
+            scaleZ: 0.9,
+            rotateX: Math.PI / 50,
+            rotateZ: -Math.PI / 2.2,
+            rotateY: -Math.PI / 1.1,
+          },
+          1: {
+            z: 20,
+            y: -viewport.height / 2.4,
+            x: 2.8,
+            rotateX: 2.5,
+            rotateZ: 2,
+            rotateY: 8.1,
+          },
+          2: {
+            z: 20,
+            y: -viewport.height * 1.4,
+            x: 2.8,
+            rotateX: 2,
+            rotateZ: 2.5,
+            rotateY: 8.1,
+          },
+        }}
       >
-        {/* <motion.group
-        position={[0, -1.5, -10]}
-        animate={{
-          z: section === 1 ? 2 : 6,
-          y: section === 1 ? -viewport.height / 4 : 2,
-          x: section === 1 ? 0 : 3,
-        }}
-      > */}
         <directionalLight position={[-5, 3, 5]} intensity={0.4} />
         <Float>
-          <mesh position={[4.2, -2.6, -5]} scale={[2, 2, 2]}>
-            <sphereGeometry />
+          <mesh position={[-1.2, -4, -4]} scale={[2, 2, 2]}>
+            {section === 0 && <sphereGeometry />}
             <MeshDistortMaterial
-              opacity={0.3}
+              opacity={0.8}
               transparent
               distort={0.4}
               speed={8.5}
-              color={"black"}
+              color={"blue"}
             />
           </mesh>
         </Float>
         <Float>
-          <mesh scale={[3, 3, 2]} position={[3, 1, -8]}>
-            <sphereGeometry />
-            <MeshDistortMaterial
-              opacity={0.8}
+          <mesh scale={[2, 2, 2]} position={[-2, -2, -5]}>
+            {section === 1 && <boxGeometry />}
+            <MeshWobbleMaterial
+              opacity={0.2}
               transparent
-              distort={1}
-              speed={5}
+              factor={2}
+              speed={2}
               color="yellow"
             />
           </mesh>
         </Float>
         <Float>
-          <mesh scale={[2, 2, 2]} position={[-3, -1, -11]}>
+          <mesh scale={[3, 4, 2]} position={[0.2, 10, -0.5]}>
+            {section === 1 && <sphereGeometry />}
+            <MeshDistortMaterial
+              opacity={0.5}
+              transparent
+              distort={1}
+              speed={2}
+              color="white"
+            />
+          </mesh>
+        </Float>
+        <Float>
+          <mesh scale={[2, 2, 2]} position={[-3, -1, 7]}>
             <boxGeometry />
             <MeshWobbleMaterial
               opacity={0.8}

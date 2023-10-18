@@ -44,11 +44,11 @@ const AboutSection = () => {
   return (
     <>
       {" "}
-      <div className="hidden lg:block absolute top-96 mt-12 left-96 ml-80 text-xs skew-x-[45deg] -skew-y-[14deg]">
+      {/* <div className="hidden  opacity-25 lg:block absolute top-96 mt-12 left-96 ml-80 text-xs skew-x-[45deg] -skew-y-[14deg]">
         If, due to excess coding, <br />
         he falls down from his chair, <br />
         please hit <b>Ctrl + R</b>
-      </div>
+      </div> */}
       <Section>
         <h1 className="text-5xl text-white font-extrabold leading-snug">
           <span className="text-3xl pb-10">Presenting to you✨</span>
@@ -92,7 +92,7 @@ const AboutSection = () => {
             }}
             transition={{
               duration: 1,
-              delay: 2,
+              delay: 0.5,
             }}
           >
             Say Hi !
@@ -110,7 +110,7 @@ const AboutSection = () => {
             }}
             transition={{
               duration: 1,
-              delay: 2,
+              delay: 0.5,
             }}
           >
             Download Resume
