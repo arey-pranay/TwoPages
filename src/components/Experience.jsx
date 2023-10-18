@@ -81,12 +81,20 @@ export const Experience = (props) => {
           },
           2: {
             z: 20,
-            y: -viewport.height * 1.4,
+            y: -viewport.height * 1.38,
             x: 2.8,
-            rotateX: 2,
-            rotateZ: 2.5,
+            rotateX: 2.5,
+            rotateZ: 2,
             rotateY: 8.1,
           },
+          // 3: {
+          //   z: 20,
+          //   y: -viewport.height * 2.35,
+          //   x: 2.8,
+          //   rotateX: 2.5,
+          //   rotateZ: 2,
+          //   rotateY: 8.1,
+          // },
         }}
       >
         <directionalLight position={[-5, 3, 5]} intensity={0.4} />
@@ -139,7 +147,11 @@ export const Experience = (props) => {
           </mesh>
         </Float>
         <group scale={[2, 2, 2]}>
-          <Avatar animation={section === 0 ? "Typing" : "Standing"} />
+          <Avatar
+            animation={
+              section === 0 ? "Typing" : section === 2 ? "Agree" : "Standing"
+            }
+          />
         </group>
       </motion.group>
     </>
