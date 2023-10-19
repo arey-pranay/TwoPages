@@ -13,21 +13,32 @@ export function Avatar(props) {
 
   const group = useRef();
   const { nodes, materials } = useGLTF("models/NormalGLB.glb");
-  const { animations: typingAnimation } = useFBX("animations/ReadyTyping.fbx");
+  const { animations: typingAnimation } = useFBX(
+    "animations/ReadyTypeiTwo.fbx"
+  );
   const { animations: standingAnimation } = useFBX(
-    "animations/ReadyBurpees.fbx"
+    "animations/Standing Idle.fbx"
   );
 
-  // const { animations: standingAnimation } = useFBX("animations/ReadyJump.fbx");
-  const { animations: fallingAnimation } = useFBX(
-    "animations/ReadyFalling.fbx"
+  const { animations: talkingAnimation } = useFBX(
+    "animations/ReadyPhoneCall.fbx"
   );
+  const { animations: fallingAnimation } = useFBX(
+    "animations/ReadyAgreeing.fbx"
+  );
+
   typingAnimation[0].name = "Typing";
   standingAnimation[0].name = "Standing";
-  fallingAnimation[0].name = "Falling";
+  fallingAnimation[0].name = "Agree";
+  talkingAnimation[0].name = "Talk";
 
   const { actions } = useAnimations(
-    [typingAnimation[0], fallingAnimation[0], standingAnimation[0]],
+    [
+      typingAnimation[0],
+      fallingAnimation[0],
+      standingAnimation[0],
+      talkingAnimation[0],
+    ],
     group
   );
   useEffect(() => {

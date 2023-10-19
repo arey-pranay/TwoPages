@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { currentProjectAtom, projects } from "./Projects";
 
 const Section = (props) => {
   const { children } = props;
@@ -32,9 +34,7 @@ export const Interface = () => {
     <div className="flex pl-4 flex-col items-center w-screen">
       <AboutSection />
       <SkillsSection />
-      <Section>
-        <h1>Projects</h1>
-      </Section>
+      <ProjectsSection />
       <ContactSection />
     </div>
   );
@@ -44,11 +44,11 @@ const AboutSection = () => {
   return (
     <>
       {" "}
-      <div className="hidden lg:block absolute top-96 mt-12 left-96 ml-80 text-xs skew-x-[45deg] -skew-y-[14deg]">
+      {/* <div className="hidden  opacity-25 lg:block absolute top-96 mt-12 left-96 ml-80 text-xs skew-x-[45deg] -skew-y-[14deg]">
         If, due to excess coding, <br />
         he falls down from his chair, <br />
         please hit <b>Ctrl + R</b>
-      </div>
+      </div> */}
       <Section>
         <h1 className="text-5xl text-white font-extrabold leading-snug">
           <span className="text-3xl pb-10">Presenting to you✨</span>
@@ -92,7 +92,7 @@ const AboutSection = () => {
             }}
             transition={{
               duration: 1,
-              delay: 2,
+              delay: 0.5,
             }}
           >
             Say Hi !
@@ -110,7 +110,7 @@ const AboutSection = () => {
             }}
             transition={{
               duration: 1,
-              delay: 2,
+              delay: 0.5,
             }}
           >
             Download Resume
@@ -194,7 +194,7 @@ const SkillsSection = () => {
     <Section>
       <motion.div whileInView={"visible"}>
         <div className="flex gap-20 flex-col md:flex-row md:gap-12">
-          <div className=" mt-10 space-y-1.5 text-purple-50">
+          <div className=" mt-52 md:mt-9 space-y-1.5 text-purple-50">
             {" "}
             <h2 className="text-4xl mb-10 text-white  font-bold">Frontend</h2>
             {skills.map((skill, index) => (
@@ -239,7 +239,7 @@ const SkillsSection = () => {
             ))}
           </div>
           <div>
-            <h2 className="text-4xl text-white font-bold mt-10">Backend</h2>
+            <h2 className="text-4xl text-white font-bold md:mt-10">Backend</h2>
             <div className=" mt-10 space-y-1">
               {languages.map((lng, index) => (
                 <div className="w-64" key={index}>
@@ -298,7 +298,37 @@ const SkillsSection = () => {
     </Section>
   );
 };
+const ProjectsSection = () => {
+  const [currentProject, setCurrentProject] = useAtom(currentProjectAtom);
 
+  const nextProject = () => {
+    setCurrentProject((currentProject + 1) % projects.length);
+  };
+
+  const previousProject = () => {
+    setCurrentProject((currentProject - 1 + projects.length) % projects.length);
+  };
+
+  return (
+    <Section>
+      <div className="flex text-white w-1/2 pt-8 h-full gap-8 items-start  justify-center">
+        <button
+          className="hover:text-gray-500 text-2xl hover:scale-75 transition-colors p-3"
+          onClick={previousProject}
+        >
+          ⏮
+        </button>
+        <h2 className="text-5xl font-bold">Projects</h2>
+        <button
+          className="hover:text-gray-500 text-2xl hover:scale-75 transition-colors p-3"
+          onClick={nextProject}
+        >
+          ⏭
+        </button>
+      </div>
+    </Section>
+  );
+};
 const ContactSection = () => {
   return (
     <Section>
