@@ -8,31 +8,31 @@ import { useEffect, useRef } from "react";
 
 export const projects = [
   {
-    title: "Wawatmos",
+    title: "3D with Elm",
     url: "https://r3f-wawatmos-final.vercel.app/",
     image: "projects/1.png",
     description: "Recreating the Atmos Awwwards website with React Three Fiber",
   },
   {
-    title: "Portfolio Baking",
+    title: "Landing Pages",
     url: "https://www.youtube.com/watch?v=YkHqpqJgLKw",
     image: "projects/1.png",
     description: "Learn how to bake a 3D model with Blender and use it in r3f",
   },
   {
-    title: "3D Avatar",
+    title: "Functional Apps",
     url: "https://www.youtube.com/watch?v=pGMKIyALcK0",
     image: "projects/1.png",
     description: "Learn how to use ReadyPlayerMe to create a 3D avatar",
   },
   {
-    title: "Kanagame",
+    title: "Blogs",
     url: "https://www.youtube.com/watch?v=zwNF1-lsia8",
     image: "projects/1.png",
     description: "Use React Three Fiber to create a 3D game",
   },
   {
-    title: "Loader",
+    title: "Open-Source Contributions",
     url: "https://www.youtube.com/watch?v=L12wIvuZTOY",
     image: "projects/1.png",
     description: "Create a loading screen for your r3f projects",
@@ -98,17 +98,20 @@ export const Projects = () => {
   const [currentProject] = useAtom(currentProjectAtom);
 
   return (
-    <group position-y={-viewport.height * 2 + 1}>
+    <group position-y={-viewport.height * 2 + 2}>
       {projects.map((project, index) => (
         <motion.group
           key={"project_" + index}
-          position={[index * 2.5, 0, -3]}
+          position={[index * 2.5, 10, -3]}
           animate={{
-            x: 0 + (index - currentProject) * 2.5,
-            y: currentProject === index ? 0 : -0.1,
-            z: currentProject === index ? -2 : -3,
-            rotateX: currentProject === index ? 0 : -Math.PI / 3,
+            x: (index - currentProject) * 4.5 - 2,
+            y: currentProject === index ? 3 : -7,
+            z: currentProject === index ? 1 : -8,
+            rotateX: currentProject === index ? 0 : -Math.PI / 2,
             rotateZ: currentProject === index ? 0 : -0.1 * Math.PI,
+          }}
+          transition={{
+            duration: 0.3,
           }}
         >
           <Project project={project} highlighted={index === currentProject} />
