@@ -1,4 +1,8 @@
 import { motion } from "framer-motion";
+import { useAtom } from "jotai";
+import { currentProjectAtom, projects } from "./Projects";
+import "./Form.css";
+import { useState } from "react";
 
 const Section = (props) => {
   const { children } = props;
@@ -29,12 +33,10 @@ const Section = (props) => {
 
 export const Interface = () => {
   return (
-    <div className="flex pl-4 flex-col items-center w-screen">
+    <div className="flex md:pl-4 flex-col items-center w-screen">
       <AboutSection />
       <SkillsSection />
-      <Section>
-        <h1>Projects</h1>
-      </Section>
+      <ProjectsSection />
       <ContactSection />
     </div>
   );
@@ -44,11 +46,11 @@ const AboutSection = () => {
   return (
     <>
       {" "}
-      <div className="hidden lg:block absolute top-96 mt-12 left-96 ml-80 text-xs skew-x-[45deg] -skew-y-[14deg]">
+      {/* <div className="hidden  opacity-25 lg:block absolute top-96 mt-12 left-96 ml-80 text-xs skew-x-[45deg] -skew-y-[14deg]">
         If, due to excess coding, <br />
         he falls down from his chair, <br />
         please hit <b>Ctrl + R</b>
-      </div>
+      </div> */}
       <Section>
         <h1 className="text-5xl text-white font-extrabold leading-snug">
           <span className="text-3xl pb-10">Presenting to you✨</span>
@@ -92,7 +94,7 @@ const AboutSection = () => {
             }}
             transition={{
               duration: 1,
-              delay: 2,
+              delay: 0.5,
             }}
           >
             Say Hi !
@@ -110,7 +112,7 @@ const AboutSection = () => {
             }}
             transition={{
               duration: 1,
-              delay: 2,
+              delay: 0.5,
             }}
           >
             Download Resume
@@ -194,7 +196,7 @@ const SkillsSection = () => {
     <Section>
       <motion.div whileInView={"visible"}>
         <div className="flex gap-20 flex-col md:flex-row md:gap-12">
-          <div className=" mt-10 space-y-1.5 text-purple-50">
+          <div className=" mt-52 md:mt-9 space-y-1.5 text-purple-50">
             {" "}
             <h2 className="text-4xl mb-10 text-white  font-bold">Frontend</h2>
             {skills.map((skill, index) => (
@@ -239,7 +241,7 @@ const SkillsSection = () => {
             ))}
           </div>
           <div>
-            <h2 className="text-4xl text-white font-bold mt-10">Backend</h2>
+            <h2 className="text-4xl text-white font-bold md:mt-10">Backend</h2>
             <div className=" mt-10 space-y-1">
               {languages.map((lng, index) => (
                 <div className="w-64" key={index}>
@@ -298,12 +300,64 @@ const SkillsSection = () => {
     </Section>
   );
 };
+const ProjectsSection = () => {
+  const [currentProject, setCurrentProject] = useAtom(currentProjectAtom);
 
-const ContactSection = () => {
+  const nextProject = () => {
+    setCurrentProject((currentProject + 1) % projects.length);
+  };
+
+  const previousProject = () => {
+    setCurrentProject((currentProject - 1 + projects.length) % projects.length);
+  };
+
   return (
     <Section>
-      <h2 className="text-5xl text-white font-bold">Contact me</h2>
-      <div className="mt-8 p-8 rounded-md bg-white w-96 max-w-full">
+      <div className="flex text-white w-1/2 pt-8 h-full gap-8 items-start  justify-center">
+        <button
+          className="hover:text-gray-500 text-2xl hover:scale-75 p-3 transition-all "
+          onClick={previousProject}
+        >
+          ⏮
+        </button>
+        <h2 className="text-5xl font-bold">⭐ Highlights ⭐</h2>
+        <button
+          className="hover:text-gray-500 text-2xl hover:scale-75 transition-all p-3"
+          onClick={nextProject}
+        >
+          ⏭
+        </button>
+      </div>
+    </Section>
+  );
+};
+
+const ContactSection = () => {
+  const [question, setQuestion] = useState("Liked the website ?");
+  const [noBtnStyle, setNoBtnStyle] = useState({});
+
+  const handleYesClick = () => {
+    setQuestion("That's so nice of you :)");
+  };
+  const handleNoClick = () => {
+    setQuestion("Oh that's sad :(");
+  };
+
+  const handleNoMouseOver = () => {
+    const wrapperRect = document
+      .querySelector(".wrapper")
+      .getBoundingClientRect();
+    const noBtnRect = document.querySelector(".no-btn").getBoundingClientRect();
+    const i =
+      Math.floor(Math.random() * (wrapperRect.width - noBtnRect.width)) + 1;
+    const j =
+      Math.floor(Math.random() * (wrapperRect.height - noBtnRect.height)) + 1;
+    setNoBtnStyle({ left: `${i}px`, top: `${j}px` });
+  };
+  return (
+    <Section>
+      {/* <h2 className="text-5xl text-white font-bold">Contact me</h2> */}
+      {/* <div className="mt-8 p-8 rounded-md bg-white w-96 max-w-full">
         <form>
           <label for="name" className="font-medium text-gray-900 block mb-1">
             Name
@@ -341,7 +395,87 @@ const ContactSection = () => {
             Submit
           </button>
         </form>
-      </div>
+      </div> */}
+      <section id="section-wrapper max-w-screen">
+        <div className="box-wrapper md:ml-4">
+          <div className="info-wrap p-2 md:p-10">
+            <div className="wrapper max-w-xs md:w-full">
+              {/* <i className="fa-solid fa-circle-question"></i> */}
+              <div className="YesOrNo">
+                <h2 className="question">{question}</h2>
+                <div className="btn-group">
+                  <button className="yes-btn" onClick={handleYesClick}>
+                    Yes
+                  </button>
+                  <button
+                    className="no-btn"
+                    onMouseOver={handleNoMouseOver}
+                    style={noBtnStyle}
+                    onClick={handleNoClick}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+
+              <div class="icons grid-cols-2 mt-5 ml-0 pl-12 md:pl-0 md:ml-10 md:mt-12">
+                <a href="#" class="fb">
+                  <i class="fab fa-slack"></i>
+                </a>
+                <a href="#" class="twitter">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="insta">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="git">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="form-wrap">
+            <form action="#" method="POST">
+              {/* <h2 className="form-title">Let's get in touch !</h2> */}
+              <div className="form-fields">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="fname"
+                    placeholder="First Name"
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="lname"
+                    placeholder="Last Name"
+                  />
+                </div>
+                <div className="form-group">
+                  <input type="email" className="email" placeholder="Mail" />
+                </div>
+                <div className="form-group">
+                  <input type="number" className="phone" placeholder="Phone" />
+                </div>
+                <div className="form-group">
+                  <textarea
+                    name="message"
+                    id=""
+                    placeholder="Write your message"
+                    defaultValue={""}
+                  />
+                </div>
+              </div>
+              <input
+                // type="submit"
+                defaultValue="Send !!"
+                className="bg-pink-600 submit-button hover:bg-purple-900"
+              />
+            </form>
+          </div>
+        </div>
+      </section>
     </Section>
   );
 };
