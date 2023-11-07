@@ -259,7 +259,7 @@ export function Office(props) {
       </group>
       <group
         name="Chair"
-        position={[0.812, 0.387, -1]}
+        position={[1, 0.387, -0.6]}
         rotation={[Math.PI, -0.015, Math.PI]}
       >
         <mesh
@@ -285,7 +285,8 @@ export function Office(props) {
       </group>
       <group
         name="LapTop_Cube002"
-        position={[0.704, 1.505, -1.801]}
+        position={[1.32, 1.605, -1.701]}
+        scale={[1.4, 1.4, 1.1]}
         rotation={[0, -1.459, 0]}
       >
         <mesh
