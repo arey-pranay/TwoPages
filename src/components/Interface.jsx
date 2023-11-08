@@ -291,7 +291,7 @@ const SkillsSection = () => {
       </motion.div>
       <div className="max-w-2xl">
         {" "}
-        <h1 className="mt-16 font-medium text-sm text-white">
+        <h1 className="hidden sm:block mt-16 font-medium text-sm text-white">
           Other skills include:{" "}
           <i>
             Proficient in Data Structures and Algorithm, Comfortable and
@@ -319,22 +319,24 @@ const ProjectsSection = () => {
 
   return (
     <Section>
-      <div className="flex text-center text-white w-1/2 pt-48 sm:pt-4 h-full gap-8 sm:items-start  sm:justify-center">
-        <button
-          className="hover:text-gray-500 absolute sm:ml-[8vw] left-3 pt-2 text-2xl hover:scale-75 sm:p-3  transition-all "
-          onClick={previousProject}
-        >
-          ⏮
-        </button>
-        <h2 className="text-3xl sm:text-5xl font-bold ml-[13vw]">
-          ⭐Highlights⭐
-        </h2>
-        <button
-          className="hover:text-gray-500 absolute sm:static right-5 text-2xl z-10 hover:scale-75 transition-all pt-1 sm:p-3"
-          onClick={nextProject}
-        >
-          ⏭
-        </button>
+      <div className="flex h-screen items-end justify-center text-center w-full text-white md:w-1/2  sm:items-start  sm:justify-center">
+        <div className="flex items-center">
+          <button
+            className="hover:text-gray-500 h-full text-2xl hover:scale-75 transition-all "
+            onClick={previousProject}
+          >
+            ⏮
+          </button>
+          <h2 className="text-3xl sm:text-5xl font-bold mx-[5vw]">
+            Highlights
+          </h2>
+          <button
+            className="hover:text-gray-500 h-full text-2xl hover:scale-75 transition-all "
+            onClick={nextProject}
+          >
+            ⏭
+          </button>
+        </div>
       </div>
     </Section>
   );
